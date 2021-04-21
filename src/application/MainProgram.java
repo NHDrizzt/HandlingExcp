@@ -32,6 +32,9 @@ public class MainProgram {
 		} catch (MainException e) {
 			System.out.println("Withdraw Error: " + e.getMessage());
 		}
+		catch (RuntimeException e) {
+			System.out.println("Unexpected error");
+		}
 
 		sc.close();
 	}

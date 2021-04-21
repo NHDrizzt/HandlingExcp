@@ -3,7 +3,7 @@ package models.entities;
 import models.exceptions.MainException;
 
 public class Account {
-	private Double number;
+	private Integer number;
 	private String holder;
 	private Double balance;
 	private Double withdrawLimit;
@@ -12,7 +12,7 @@ public class Account {
 		
 	}
 
-	public Account(Double number, String holder, Double balance, Double withdrawLimit) {
+	public Account(Integer number, String holder, Double balance, Double withdrawLimit) {
 		super();
 		this.number = number;
 		this.holder = holder;
@@ -20,11 +20,11 @@ public class Account {
 		this.withdrawLimit = withdrawLimit;
 	}
 
-	public Double getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
-	public void setNumber(Double number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
@@ -57,10 +57,13 @@ public class Account {
 	}
 	
 	public  void withdraw(double amount) {
-		if(balance <= 0 || amount > withdrawLimit) {
-			throw new MainException("Valor Inválido");
+		if(amount > withdrawLimit) {
+			throw new MainException("The amount exceeds withdraw limit");
 		}
-		this.balance = amount;
+		if(balance < amount) {
+			throw new MainException("Not enough balance");
+		}
+		this.balance -= amount;
 	}
 	
 }
